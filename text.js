@@ -1,2 +1,2 @@
-console.log("vaishnavi ganjare");
+console.log("vaishnavi");
 console.log("hello");
