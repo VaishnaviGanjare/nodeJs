@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <h1>Book Appointment</h1>
+  <label form="patient_details">Patient Details</label>
+  <br>
+  <hr>
+
+  <form id="patient_details" onsubmit="handleFormSubmit(event)">
+    <label for="name">Name:</label>
+     <input type="text" id="name" name="u_name">
+    <br>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+    <br>
+    
+    <label for="tele">Phone Number:</label>
+    <input type="tel" id="tele" name="phone">
+    <br>
+
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date">
+    <br>
+    
+    <label for="time">Time:</label>
+    <input type="time" id="time" name="time">
+    <br>
+
+    <label>
+    <button type="submit">Submit</button>
+    </label>
+    <label>
+    <button type="reset">Reset</button>
+    </label>
+  </form>
+  </body>
+<script>
+function handleFormSubmit(event){
+  event.preventDefault(event);
+  console.log(event.u_name);
+  console.log(event.email);
+  console.log(event.phone);
+  console.log(event.date);
+  console.log(event.time);
+  
+}
+
+</script>
+</html>
