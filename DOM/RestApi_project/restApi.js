@@ -5,7 +5,7 @@ function displayVeg(){
     let vegTable = document.getElementById('veg-table');
     vegTable.innerHTML = '';
 
-    axios.get("https://crudcrud.com/api/68f7b181cda74603a4d5bd72d644eb66/vegData")
+    axios.get("https://crudcrud.com/api/8d1b7289685c4d3bba38fa21ad3687ec/vegData")
     .then((res)=>{
       for(let i=0;i<res.data.length;i++){
         const Dat=res.data[i];
@@ -26,7 +26,7 @@ function displayTotal(obj){
   let vegTotal = document.getElementById('head');
   vegTotal.innerHTML = '';
 
-  axios.get("https://crudcrud.com/api/68f7b181cda74603a4d5bd72d644eb66/vegData")
+  axios.get("https://crudcrud.com/api/8d1b7289685c4d3bba38fa21ad3687ec/vegData")
   .then((res)=>{
     let head=document.createElement('h1');
     total=res.data.length;
@@ -51,7 +51,7 @@ function addVeg(event){
     });
    
     // Save the veg to crud crud
-    axios.post("https://crudcrud.com/api/68f7b181cda74603a4d5bd72d644eb66/vegData",obj)
+    axios.post("https://crudcrud.com/api/8d1b7289685c4d3bba38fa21ad3687ec/vegData",obj)
     .then((response)=>{
         console.log(response)
         displayVeg()
@@ -63,7 +63,7 @@ function addVeg(event){
   // Delete an veg
 function deleteVeg(U_id) {
  
-  axios.delete(`https://crudcrud.com/api/68f7b181cda74603a4d5bd72d644eb66/vegData/${U_id}`)
+  axios.delete(`https://crudcrud.com/api/8d1b7289685c4d3bba38fa21ad3687ec/vegData/${U_id}`)
   .then((resp)=>{
     console.log(resp)
     total--;
@@ -79,7 +79,7 @@ function buyVeg(quant, id, price, text, kg){
   quant=quant-input;
   quant = quant.toString();
   console.log(quant);
-  axios.put(`https://crudcrud.com/api/68f7b181cda74603a4d5bd72d644eb66/vegData/${id}`,{
+  axios.put(`https://crudcrud.com/api/8d1b7289685c4d3bba38fa21ad3687ec/vegData/${id}`,{
      text,
      price,
      quantity:quant
