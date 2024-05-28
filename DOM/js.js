@@ -1,34 +1,33 @@
-const expenses=JSON.parse(localStorage.getItem('expenses')) || [];
+// Get the expenses from local storage
+ var expenses = JSON.parse(localStorage.getItem('expenses')) || [];
 
-//display expenses on screen
-function displayExpenses(){
-  let expensesTable = document.getElementById('expenses-table');
+// Display the expenses in the table
+function displayExpenses() {
+  var expensesTable = document.getElementById('expenses-table');
   expensesTable.innerHTML = '';
-  
-  for(let i=0;i<expenses.length;i++){
-    let expense=expenses[i];
-    let row=document.createElement('tr');
+  for (var i = 0; i < expenses.length; i++) {
+    var expense = expenses[i];
+    var row = document.createElement('tr');
     row.innerHTML = `
-      <td>${expense.number}</td>
-      <td>${expense.text}</td>
+      <td>${expense.date}</td>
       <td>${expense.category}</td>
+      <td>${expense.amount}</td>
       <td><button onclick="deleteExpense(${i})">Delete</button></td>
       <td><button onclick="editExpense(${i})">Edit</button></td>`;
     expensesTable.appendChild(row);
-  } 
+  }
 }
 
-//add expense in localStorage
-function addExpense(){
-  var number = document.getElementById('add-expense-form')['number'].value;
-  console.log(number);
-  var text = document.getElementById('add-expense-form')['text'].value;
+// Add a new expense
+function addExpense() {
+  var date = document.getElementById('add-expense-form')['date'].value;
   var category = document.getElementById('add-expense-form')['category'].value;
+  var amount = document.getElementById('add-expense-form')['amount'].value;
 
   expenses.push({
-    number:number,
-    text:text,
-    category: category
+    date: date,
+    category: category,
+    amount: amount
   });
 
   // Save the expenses to local storage
@@ -47,21 +46,21 @@ function deleteExpense(index) {
 
   // Display the updated expenses table
   displayExpenses();
-
 }
 
+// Edit an expense
 function editExpense(index) {
   var expense = expenses[index];
 
   // Prompt the user for the updated values
-  var number = prompt('Enter the updated date:', expense.number);
-  var text = prompt('Enter the updated amount:', expense.text);
+  var date = prompt('Enter the updated date:', expense.date);
   var category = prompt('Enter the updated category:', expense.category);
+  var amount = prompt('Enter the updated amount:', expense.amount);
 
   // Update the expense
-  expense.number = number;
-  expense.text = text;
+  expense.date = date;
   expense.category = category;
+  expense.amount = amount;
 
   // Save the updated expenses to local storage
   localStorage.setItem('expenses', JSON.stringify(expenses));

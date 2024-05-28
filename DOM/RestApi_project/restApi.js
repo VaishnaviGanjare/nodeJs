@@ -1,12 +1,17 @@
+const veg_form=document.getElementById('add-veg-form');
+const vegTable = document.getElementById('veg-table');
+const vegTotal = document.getElementById('head');
 let total=0;
 
-
-function displayVeg(){
-    let vegTable = document.getElementById('veg-table');
+//display vegetable detail on screen
+ async function displayVeg(){
+  try{
     vegTable.innerHTML = '';
+    vegTotal.innerHTML = '';
 
-    axios.get("https://crudcrud.com/api/8d1b7289685c4d3bba38fa21ad3687ec/vegData")
-    .then((res)=>{
+   const res = await axios.get("https://crudcrud.com/api/82679b559d3d4c1bb53a6c076a505fdc/vegData")
+   // .then((res)=>{
+     {
       for(let i=0;i<res.data.length;i++){
         const Dat=res.data[i];
         let row=document.createElement('tr');
@@ -18,31 +23,25 @@ function displayVeg(){
         <td><button onclick="deleteVeg('${Dat._id}')">Delete</button></td>`;  
         vegTable.appendChild(row);
       }
-    })
-    .catch((err)=>console.log(err))   
+    
+      total=res.data.length;
+      head.innerHTML=`<h1>Total: ${total}</h1>`;
+   // })
+    }
   }
+    catch(error){console.log(error)};  
+  }
+  
+     
+  
 
-function displayTotal(obj){
-  let vegTotal = document.getElementById('head');
-  vegTotal.innerHTML = '';
-
-  axios.get("https://crudcrud.com/api/8d1b7289685c4d3bba38fa21ad3687ec/vegData")
-  .then((res)=>{
-    let head=document.createElement('h1');
-    total=res.data.length;
-    head.innerHTML=`<h1>Total: ${total}</h1>`
-    vegTotal.appendChild(head);
-  })
-  .catch((err)=>console.log(err))
-
-}
-
+//add vegetable to crudcrud
 function addVeg(event){
     event.preventDefault();
     total++;
-    var text = document.getElementById('add-veg-form')['text'].value;
-    var price = document.getElementById('add-veg-form')['price'].value;
-    var quantity = document.getElementById('add-veg-form')['quantity'].value;
+    var text = veg_form['text'].value;
+    var price = veg_form['price'].value;
+    var quantity = veg_form['quantity'].value;
   
     const obj=({
       text,
@@ -51,47 +50,39 @@ function addVeg(event){
     });
    
     // Save the veg to crud crud
-    axios.post("https://crudcrud.com/api/8d1b7289685c4d3bba38fa21ad3687ec/vegData",obj)
-    .then((response)=>{
-        console.log(response)
+    axios.post("https://crudcrud.com/api/82679b559d3d4c1bb53a6c076a505fdc/vegData",obj)
+    .then(()=>{
         displayVeg()
-        displayTotal()
     })
     .catch((err)=>{console.log(err)});
   }
-  
+ 
   // Delete an veg
 function deleteVeg(U_id) {
- 
-  axios.delete(`https://crudcrud.com/api/8d1b7289685c4d3bba38fa21ad3687ec/vegData/${U_id}`)
-  .then((resp)=>{
-    console.log(resp)
+  axios.delete(`https://crudcrud.com/api/82679b559d3d4c1bb53a6c076a505fdc/vegData/${U_id}`)
+  .then(()=>{
     total--;
     displayVeg();
-    displayTotal();
 })
 .catch((err)=>{console.log(err)});
 }
 
+//edit veg quantity after pressing buy button.
 function buyVeg(quant, id, price, text, kg){
-
-  const input=kg.value
-  quant=quant-input;
+  quant=quant-kg.value;
   quant = quant.toString();
-  console.log(quant);
-  axios.put(`https://crudcrud.com/api/8d1b7289685c4d3bba38fa21ad3687ec/vegData/${id}`,{
+  
+  axios.put(`https://crudcrud.com/api/82679b559d3d4c1bb53a6c076a505fdc/vegData/${id}`,{
      text,
      price,
      quantity:quant
   })
-    .then((resp)=>{
-      console.log(resp)
-      displayVeg();
-      displayTotal();
+  .then(()=>{displayVeg();
   })
   .catch((err)=>{console.log(err)});
 }
 
 //load all fields
 displayVeg();
-displayTotal();
+
+
