@@ -1,0 +1,16 @@
+{
+  "name": "task9",
+  "version": "1.0.0",
+  "description": "task9 how to use npm",
+  "main": "task9.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon task9.js",
+    "start-server": "node task9.js"
+  },
+  "author": "Vaishnavi Ganjare",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  }
+}
